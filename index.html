@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ATL3 TREND</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      :root {
+        --bg-color: #000000;
+        --text-main: #ffffff;
+        --text-muted: rgba(255, 255, 255, 0.6);
+        --glass-bg: rgba(20, 20, 20, 0.6);
+        --glass-border: rgba(255, 255, 255, 0.1);
+        --accent: #fbbf24; /* Amber 400 */
+        --accent-sec: #d97706; /* Amber 600 */
+        --accent-glow: rgba(251, 191, 36, 0.3);
+        --grid-line: rgba(251, 191, 36, 0.3);
+        --card-bg: rgba(20, 20, 20, 0.4);
+      }
+
+      .light-mode {
+        --bg-color: #f8fafc;
+        --text-main: #0f172a;
+        --text-muted: rgba(15, 23, 42, 0.6);
+        --glass-bg: rgba(255, 255, 255, 0.6);
+        --glass-border: rgba(0, 0, 0, 0.1);
+        --accent: #d97706; /* Amber 600 */
+        --accent-sec: #fbbf24; /* Amber 400 */
+        --accent-glow: rgba(217, 119, 6, 0.2);
+        --grid-line: rgba(217, 119, 6, 0.15);
+        --card-bg: rgba(255, 255, 255, 0.5);
+      }
+
+      body {
+        background-color: var(--bg-color);
+        color: var(--text-main);
+        min-height: 100vh;
+        overflow-x: hidden;
+        margin: 0;
+        padding: 0;
+        transition: background-color 0.3s ease, color 0.3s ease;
+      }
+      
+      /* 3D Moving Grid Floor */
+      .grid-container-3d {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        z-index: 0;
+        perspective: 600px;
+        pointer-events: none;
+      }
+
+      .grid-floor {
+        position: absolute;
+        top: 25%;
+        left: -50%;
+        width: 200%;
+        height: 150%;
+        background-image: 
+          linear-gradient(var(--grid-line) 1px, transparent 1px),
+          linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+        background-size: 80px 80px;
+        transform: rotateX(60deg);
+        transform-origin: 50% 0;
+        animation: grid-scroll 3s linear infinite;
+        mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 80%, transparent 100%);
+      }
+      
+      @keyframes grid-scroll {
+        0% { background-position: 0 0; }
+        100% { background-position: 0 80px; }
+      }
+      
+      /* Glassmorphism */
+      .glass-card {
+        background: var(--card-bg);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        border: 1px solid var(--glass-border);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      
+      .glass-input {
+        background: var(--glass-bg);
+        backdrop-filter: blur(8px);
+        border: 1px solid var(--glass-border);
+        color: var(--text-main);
+      }
+      .glass-input::placeholder {
+        color: var(--text-muted);
+      }
+
+      /* 3D Effects */
+      .perspective-container {
+        perspective: 1000px;
+      }
+      
+      .card-3d {
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        transform-style: preserve-3d;
+      }
+      
+      .card-3d:hover {
+        transform: translateY(-10px) rotateX(5deg) scale(1.02);
+        box-shadow: 0 20px 40px -5px var(--accent-glow);
+        border-color: var(--accent);
+      }
+
+      .card-content-3d {
+        transform: translateZ(20px);
+      }
+
+      /* Animations */
+      @keyframes float {
+        0% { transform: translate(0px, 0px) scale(1); }
+        33% { transform: translate(50px, -50px) scale(1.1); }
+        66% { transform: translate(-30px, 30px) scale(0.9); }
+        100% { transform: translate(0px, 0px) scale(1); }
+      }
+      
+      .animate-blob {
+        animation: float 10s infinite ease-in-out;
+      }
+      
+      .animation-delay-2000 {
+        animation-delay: 2s;
+      }
+      
+      .animation-delay-4000 {
+        animation-delay: 4s;
+      }
+
+      /* Custom Utilities */
+      .text-primary { color: var(--text-main); }
+      .text-muted { color: var(--text-muted); }
+      .text-accent { color: var(--accent); }
+      .bg-glass { background-color: var(--glass-bg); }
+      .border-glass { border-color: var(--glass-border); }
+
+      ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: var(--bg-color);
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--glass-border);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--accent);
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "lucide-react": "https://aistudiocdn.com/lucide-react@^0.554.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.5.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.6",
+    "framer-motion": "https://esm.sh/framer-motion@11.18.2?external=react,react-dom"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body>
+    <div id="root"></div>
+  <script type="module" src="/index.tsx"></script>
+</body>
+</html>

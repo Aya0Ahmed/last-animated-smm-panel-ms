@@ -1,0 +1,51 @@
+type User @table {
+  username: String!
+  passwordHash: String!
+  email: String!
+  createdAt: Timestamp!
+  firstName: String
+  lastName: String
+  balance: Float
+  isAdmin: Boolean
+}
+
+type Category @table {
+  name: String!
+  createdAt: Timestamp!
+  description: String
+}
+
+type Service @table {
+  name: String!
+  description: String!
+  category: Category!
+  pricePerUnit: Float!
+  minQuantity: Int!
+  maxQuantity: Int!
+  platform: String!
+  createdAt: Timestamp!
+  imageUrl: String
+  deliveryTimeEstimate: String
+}
+
+type Order @table {
+  user: User!
+  service: Service!
+  quantity: Int!
+  targetLinkOrUsername: String!
+  status: String!
+  totalPrice: Float!
+  createdAt: Timestamp!
+  startCount: Int
+  currentCount: Int
+  completedAt: Timestamp
+}
+
+type Transaction @table {
+  user: User!
+  type: String!
+  amount: Float!
+  status: String!
+  createdAt: Timestamp!
+  referenceId: String
+}

@@ -1,0 +1,101 @@
+mutation CreateSeedData @transaction @auth(level: USER, insecureReason: "This operation is only used to populate the database with seed data.") {
+  category_insertMany(data: [
+    {
+      id: "550e8400-e29b-41d4-a716-446655440000",
+      name: "Category 1",
+      description: "Description for Category 1",
+      createdAt: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: "550e8400-e29b-41d4-a716-446655440001",
+      name: "Category 2",
+      description: "Description for Category 2",
+      createdAt: "2024-01-02T00:00:00Z"
+    }
+  ])
+  user_insertMany(data: [
+    {
+      id: "650e8400-e29b-41d4-a716-446655440000",
+      username: "user1",
+      email: "user1@example.com",
+      passwordHash: "hash1",
+      createdAt: "2024-01-01T00:00:00Z"
+    },
+    {
+      id: "650e8400-e29b-41d4-a716-446655440001",
+      username: "user2",
+      email: "user2@example.com",
+      passwordHash: "hash2",
+      createdAt: "2024-01-02T00:00:00Z"
+    }
+  ])
+  service_insertMany(data: [
+    {
+      id: "750e8400-e29b-41d4-a716-446655440000",
+      categoryId: "550e8400-e29b-41d4-a716-446655440000",
+      name: "Service 1",
+      description: "Description for Service 1",
+      platform: "Platform 1",
+      pricePerUnit: 1.0,
+      maxQuantity: 100,
+      minQuantity: 1,
+      createdAt: "2024-01-03T00:00:00Z"
+    },
+    {
+      id: "750e8400-e29b-41d4-a716-446655440001",
+      categoryId: "550e8400-e29b-41d4-a716-446655440001",
+      name: "Service 2",
+      description: "Description for Service 2",
+      platform: "Platform 2",
+      pricePerUnit: 2.0,
+      maxQuantity: 200,
+      minQuantity: 2,
+      createdAt: "2024-01-04T00:00:00Z"
+    }
+  ])
+  order_insertMany(data: [
+    {
+      id: "850e8400-e29b-41d4-a716-446655440000",
+      serviceId: "750e8400-e29b-41d4-a716-446655440000",
+      userId: "650e8400-e29b-41d4-a716-446655440000",
+      quantity: 10,
+      status: "Pending",
+      targetLinkOrUsername: "link1",
+      totalPrice: 10.0,
+      createdAt: "2024-01-05T00:00:00Z",
+      startCount: 0,
+      currentCount: 0
+    },
+    {
+      id: "850e8400-e29b-41d4-a716-446655440001",
+      serviceId: "750e8400-e29b-41d4-a716-446655440001",
+      userId: "650e8400-e29b-41d4-a716-446655440001",
+      quantity: 20,
+      status: "Completed",
+      targetLinkOrUsername: "link2",
+      totalPrice: 40.0,
+      createdAt: "2024-01-06T00:00:00Z",
+      startCount: 20,
+      currentCount: 20,
+      completedAt: "2024-01-07T00:00:00Z"
+    }
+  ])
+  transaction_insertMany(data: [
+    {
+      id: "950e8400-e29b-41d4-a716-446655440000",
+      userId: "650e8400-e29b-41d4-a716-446655440000",
+      amount: 10.0,
+      type: "Deposit",
+      status: "Success",
+      createdAt: "2024-01-05T00:00:00Z"
+    },
+    {
+      id: "950e8400-e29b-41d4-a716-446655440001",
+      userId: "650e8400-e29b-41d4-a716-446655440001",
+      amount: 40.0,
+      type: "Withdrawal",
+      status: "Success",
+      createdAt: "2024-01-06T00:00:00Z"
+    }
+  ])
+}

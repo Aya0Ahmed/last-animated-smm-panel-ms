@@ -1,0 +1,5 @@
+{
+  "name": "Service Dashboard",
+  "description": "A user dashboard tracking service orders and spending analytics.",
+  "requestFramePermissions": []
+}
