@@ -16,7 +16,7 @@ const handleLogin = async (e: React.FormEvent) => {
   setLoading(true);
 
   try {
-    const res = await fetch("https://iptmg.online/api/login.php", {
+    const res = await fetch("https://darkred-cattle-643099.hostingersite.com/api/login.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
